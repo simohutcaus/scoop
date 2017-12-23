@@ -34,7 +34,7 @@ const routes = {
 
   },
   '/comments/:id': {
-    'PUT': 'testingFIXLATER',
+    'PUT': updateComment,
     'DELETE': 'testingFIXLATER'
     
   },
@@ -188,6 +188,27 @@ function createComment(url, request) {
     response.status = 201;
   } else {
     response.status = 400;
+  }
+
+  return response;
+}
+
+function updateComment(url, request) {
+  const id = Number(url.split('/').filter(segment => segment)[1]);
+  const savedComment = database.comments[id];
+  const requestArticle = request.body && request.body.article;
+  const response = {};
+
+  if (!id || !requestArticle) {
+    response.status = 400;
+  } else if (!savedArticle) {
+    response.status = 404;
+  } else {
+    savedArticle.title = requestArticle.title || savedArticle.title;
+    savedArticle.url = requestArticle.url || savedArticle.url;
+
+    response.body = {article: savedArticle};
+    response.status = 200;
   }
 
   return response;
