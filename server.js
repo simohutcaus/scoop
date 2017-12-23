@@ -254,8 +254,10 @@ function deleteComment(url, request) {
   //  });
     const userCommentIds = database.users[savedComment.username].commentIds;
     userCommentIds.splice(userCommentIds.indexOf(id), 1);
-    //const articleCommentIds = database.articles[articleId].commentIds;
-    //articleCommentIds.splice(articleCommentIds.indexOf(id), 1);
+    //console.log(savedComment);
+    //const articleId = database.comments[savedComment.articleId].articleId;
+   // console.log('this is ' + articleId);
+    //articleId.splice(articleId.indexOf(id), 1);
     response.status = 204;
   } else {
     response.status = 404;
