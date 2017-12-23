@@ -194,20 +194,21 @@ function createComment(url, request) {
 }
 
 function updateComment(url, request) {
+  //console.log('this is update comment ' + request.body);
   const id = Number(url.split('/').filter(segment => segment)[1]);
   const savedComment = database.comments[id];
-  const requestArticle = request.body && request.body.article;
+  const requestComment = request.body && request.body.comment;
   const response = {};
 
-  if (!id || !requestArticle) {
+  if (!id || !requestComment) {
     response.status = 400;
-  } else if (!savedArticle) {
+  } else if (!savedComment) {
     response.status = 404;
   } else {
-    savedArticle.title = requestArticle.title || savedArticle.title;
-    savedArticle.url = requestArticle.url || savedArticle.url;
+    savedComment.body = requestComment.body || savedComment.body;
+    //savedComment.url = requestArticle.url || savedArticle.url;
 
-    response.body = {article: savedArticle};
+    response.body = {comment: savedComment};
     response.status = 200;
   }
 
