@@ -185,6 +185,7 @@ function createComment(url, request) {
     database.articles[comment.id].commentIds.push(comment.id);
 
     response.body = {comment: comment};
+    console.log(database);
     response.status = 201;
   } else {
     response.status = 400;
@@ -255,7 +256,8 @@ function deleteComment(url, request) {
     const userCommentIds = database.users[savedComment.username].commentIds;
     userCommentIds.splice(userCommentIds.indexOf(id), 1);
     //console.log(savedComment);
-    //const articleId = database.comments[savedComment.articleId].articleId;
+    const articleId = database.articles[savedComment.articleId].commentIds;
+    articleId.splice(articleId.indexOf(id), 1);
    // console.log('this is ' + articleId);
     //articleId.splice(articleId.indexOf(id), 1);
     response.status = 204;
